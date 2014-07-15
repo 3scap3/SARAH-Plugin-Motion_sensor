@@ -2,9 +2,9 @@
   "modules": { 
     "standby": {
       "description": "plugin pour interagir avec le fonctionalités de detection de mouvement de sarah , ou comment recuperer un ms13 gratos ^^",
-      "version": "0.1",
-      "url_motion_true": "http://xxx.xxx.xxx.xxx/etc",
-	    "url_motion_false": "http://xxx.xxx.xxx.xxx/etc"
+      "version": "0.2",
+      "url_motion_true": "http://xxx.xxx.xxx.xxx/on",
+	    "url_motion_false": "http://xxx.xxx.xxx.xxx/off"
     }
   }
 } 

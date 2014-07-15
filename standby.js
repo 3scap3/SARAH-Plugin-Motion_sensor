@@ -1,88 +1,66 @@
-var url_true;
-var url_false;
+//La première action est déclenché par la detection de mouvements :
+exports.standBy = function(motion, data, SARAH){
+  console.log('========================================================================================================================================='); 	
+  //On récupére l'état de motion : "motion is a boolean true/false"
+  console.log('DEBUG exports.standBy STANDBY :');
+  console.log('SATUT de motion = ' + motion);
+  
+  //On envoi la requette url du coter "export action"  avec l'etat de "motion" , pour pouvoire le récuperé dans "data" en appellant une fonction http
+  var url = 'http://127.0.0.1:8383/sarah/standby?motion=' + motion
+  http(url);
+}
 
+//La deuxiéme action est declenchée par la premiére en simulant l'appélle du plugin , avec transmition de la variable motion :
 exports.action = function(data, callback, config, SARAH){
-
-	// Narrow to plugiin's config
+  
+  //Une fois la requette de l'export.stanBy envoyée , on peut recuperer les paramétres data avec la variable motion  et a config pour les url d'actions
+  
+  console.log('DEBUG exports.action STANDBY.');
+  console.log('VARIABLE url_true du .prop = ' + config.modules.standby.url_motion_true);
+  console.log('VARIABLE url_false du .prop = ' + config.modules.standby.url_motion_false);
+  console.log('VARIABLE data.motion transmise par l exports.stanBy = ' + data.motion);
+   
+  //On affecte les variables passée par les objets en paramétre : 
   url_true = config.modules.standby.url_motion_true;
-	url_false = config.modules.standby.url_motion_false;
-	  
-	// >>> your code here <<<
-	  
-	// Appelle la fonction pour executer la requette http
-	//http();
-	  
-	  
-	 //exports.standBy = function(motion){
-	 //var etat_motion = motion
-	 //console.log('DEBUG ACTION STANDBY.');
-	 //}
-
-	// callback({'tts' : text});
-	callback({'tts' : 'pour linstant je ne sait pas '}); 
+  url_false = config.modules.standby.url_motion_false;
+  motion = data.motion
+  
+  console.log('VARIABLE Affecter motion = ' + motion);
+  
+  //Les deux blocs conditionelles qui déclenche l'url déclarée dans le point prop en fonction de la captation de mouvements :
+  if (motion == 'true') {
+	//Appelle la fonction pour executé la requette http
+	var url = url_true;
+	http(url);
+	callback({'tts' : 'Motion = ' + data.motion});
+  }
+  
+  if (motion == 'false') {
+	var url = url_false;	
+	//Appelle la fonction pour executé la requette http
+	http(url);
+	callback({'tts' : 'Motion = ' + data.motion});
+  }
 }
 
-//exports.standBy = function(motion , data, SARAH){
-exports.standBy = function(motion , data, callback, config, SARAH){
-//exports.standBy = function(motion){
-	 
-	console.log('=========================================================================================================================================');
-		 
-	//motion is a boolean true/false
-	var etat_motion = motion
-	console.log('DEBUG ACTION STANDBY.');
-	//callback({'tts' : 'motion est ' + etat_motion});
+//Fonction http pour les requette :
+function http(url){
 
-	var text = 'je suis en standbye';
-	//PROBLEMES JE N ARRIVE PAS A ACCEDER AU PROP POUR DEFINIRE L URL PAR LE FICHIER DE CONFIG ...
-  //url_true = config.modules.standby.url_motion_true;
-	//url_false = config.modules.standby.url_motion_false;
-  var url_true = 'votre url en dur pour du mouvment detecter';
-	var url_false = 'votre url en dur en abscence de mouvement';
+var request = require('request');
+ 
+request({ 'uri' : url }, function (err, response, body){
 
-console.log('INFOS on est dans le plugin standby.');
-
-	if (motion == true) {
-		console.log('INFOS DEBUG la variable motion est : ' + motion); 
-		
-		//Appelle la fonction pour executer la requette http
-		var url = url_true;
-		http(url);
-		
+	if (err || response.statusCode != 200) {
+		console.log('INFOS : L action a échoué');
+		//callback({'tts': "L'action a échouée"});
+		//console.log('=========================================================================================================================================');
 	}
-		  
-	if (motion == false) {
-		console.log('INFOS DEBUG la variable motion est : ' + motion);
-		
-		var url = url_false;	
-		//Appelle la fonction pour executer la requette http
-		http(url);
+	else {
+		console.log('INFOS : url poster dans la requette http : ' + url);
+		console.log('INFOS : Tout est ok , la requette est éxécuter');
+		//callback({'tts': 'Tout est ok , la requette est éxécutée' });
+		//console.log('=========================================================================================================================================');
 	}
-
+	return;
+	});
 }
-
-
- //Fonction http pour les requette :
- function http(url){
-  //var url = config.modules.requette_http.my_url;
-  
-  console.log('var url = ' + url);
-  
-  var request = require('request');
-  
-  request({ 'uri' : url }, function (err, response, body){
-		if (err || response.statusCode != 200) {
-		  console.log('INFOS : L action a échoué');
-		  //callback({'tts': "L'action a échoué"});
-		  console.log('=========================================================================================================================================');
-		  }
-		  else {
-		  console.log('INFOS : Tout est ok , la requette est éxécuter');
-		  //callback({'tts': 'Tout est ok , la requette est éxécuter' });
-          console.log('=========================================================================================================================================');
-
-		  }
-		  return;
-		});
-	}
-// callback({'tts' : text});	
