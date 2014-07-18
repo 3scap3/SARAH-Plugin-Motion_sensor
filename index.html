@@ -1,52 +1,49 @@
-<div id="demo2">
+<div id="Motion_sensor">
 
   <div class="row-fluid">
     <div class="span11">
-      <p>Le plugin <b>demo2</b> permet d'expliquer simplement le code d'un module pour S.A.R.A.H.</p>
-      <p>Le plugin est décrit dans le fichier <i>demo2.prop</i> :</p>
+      <p>Le plugin <b>Motion_sensor</b> permet d'exploiter la fonction de captation de mouvement du kinect (standby) pour S.A.R.A.H.</p>
+      <p>Parametrage du fichier de proprietée <i>Motion_sensor.prop</i> :</p>
       <pre>
-{
-  "modules": { 
-    "demo2": {
-      "description": "Demo de plugin type Module",
-      "version": "0.1"
-    }
-  }
-}
+			{
+			  "modules": { 
+				"standby": {
+				  "description": "plugin pour interagir avec le fonctionalités de detection de mouvement de sarah , ou comment recuperer un ms13 gratos ^^",
+				  "version": "0.2",
+				  "url_motion_true": "http://xxx.xxx.xxx.xxx/on",
+				  "url_motion_false": "http://xxx.xxx.xxx.xxx/off"
+				}
+			  }
+			} 
       </pre>
-      <p>Les phrases magiques sont définies dans le fichier de grammaire XML <i>demo2.xml</i> :
+	  
+	  <p>L'orsque un mouvement est detecté une requette http est envoyée a l'url definite dans le champ <b>url_motion_true</b>.</p>
+      <p>Aprés un certain laps de temp (definit en ms par le parametre "standby" du custom.ini) , sans detection de mouvement , l'url definite dans le champ <b>url_motion_false</b> est appeler a son tour.</p>
+	  <p>Pour integré le kinect dans votre installation domotique , pointer les url sur votre box en fonction de ses pre-requis.</p>
+	  <p></p>
+	  <p>NB :</p>
+	  <p>Si votre sarah ecoute sur un port differend ou que le nodes js se trouve sur un ip distante (non localhost) vous devrez editer la ligne 9 du fichier <b>Motion_sensor.js</b> :</p>
+	  <p>var url = 'http://127.0.0.1:8383/sarah/Motion_sensor?motion=' + motion<p>
+	  <p></p>
+	  
+      <p>Pour afficher le status des variable dans la fenetre node js , voicis les phrases definit dans le fichier <i>Motion_sensor.xml :</i> :
         <ul>
-          <li><i>Sarah, tu es cool</i></li>
-          <li><i>Sarah, tu es chouette</i></li>
-          <li><i>Sarah, tu es sympa</i></li>
+          <li><i>statut</i></li>
+          <li><i>quel est ton etat</i></li>
+          <li><i>valeur standby</i></li>
         </ul>
       </p>
-      <pre>
-&lt;grammar version=&quot;1.0&quot; xml:lang=&quot;fr-FR&quot; mode=&quot;voice&quot; root=&quot;ruleDemo&quot; xmlns=&quot;http://www.w3.org/2001/06/grammar&quot; tag-format=&quot;semantics/1.0&quot;&gt;
-  &lt;rule id=&quot;ruleDemo&quot; scope=&quot;public&quot;&gt;
-    &lt;example&gt;Sarah tu es cool&lt;/example&gt;
-    &lt;tag&gt;out.action=new Object(); &lt;/tag&gt;
-
-    &lt;item weight=&quot;2&quot;&gt;Sarah&lt;/item&gt;
-
-    &lt;one-of&gt;
-      &lt;item weight=&quot;1.2&quot;&gt;tu es cool&lt;/item&gt;
-      &lt;item&gt;tu es chouette&lt;/item&gt;
-      &lt;item&gt;tu es sympa&lt;/item&gt;
-    &lt;/one-of&gt;
-
-    &lt;tag&gt;out.action._attributes.uri=&quot;http://127.0.0.1:8080/sarah/demo2&quot;;&lt;/tag&gt;
-  &lt;/rule&gt; 
-&lt;/grammar&gt;
-      </pre>
-      <p>Sur correspondance, le script <i>demo2.js</i> est ensuite exécuté.</p>
-      <p>Le script fait simplement un <code>callback</code> avec la réponse &laquo; <i>merci</i> &raquo;.</p>
-      <pre>
-exports.action = function(data, callback, config) {
-  callback({'tts': 'merci'});
-}
-      </pre>
+	  
+	  <p>Exemple d'utilisation :</p>
+	  <p>- Vous pouvez par exemple chainer se plugin avec le plugin kinect de jean philippe pour declenché une prise de photos en cas de detection de mouvement.</p>
+	  <p>- Appeler la page d'un serveur web en (php js vbs) pour convertire la requette en language comprehensible par votre box (en fonction des api)</p>
+	  <p>- Appeler directement une url de votre box domotique si celle ci prend en charge les requettes http</p>
+	  <p>- n'hesiter a partager vos idées si vous en avez ^^ </p>
+	  
     </div>
+	
+	<p>Voila , si vous aviez un detecteur de mouvement dans la piece ou se trouve le kinect de S.A.R.A.H vous pouvez le recuperé et le mettre ailleur ^^</p>
+	  
   </div>
 
 </div>

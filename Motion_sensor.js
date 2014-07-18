@@ -6,7 +6,7 @@ exports.standBy = function(motion, data, SARAH){
   console.log('SATUT de motion = ' + motion);
   
   //On envoi la requette url du coter "export action"  avec l'etat de "motion" , pour pouvoire le récuperé dans "data" en appellant une fonction http
-  var url = 'http://127.0.0.1:8383/sarah/standby?motion=' + motion
+  var url = 'http://127.0.0.1:8080/sarah/Motion_sensor?motion=' + motion
   http(url);
 }
 
@@ -16,13 +16,13 @@ exports.action = function(data, callback, config, SARAH){
   //Une fois la requette de l'export.stanBy envoyée , on peut recuperer les paramétres data avec la variable motion  et a config pour les url d'actions
   
   console.log('DEBUG exports.action STANDBY.');
-  console.log('VARIABLE url_true du .prop = ' + config.modules.standby.url_motion_true);
-  console.log('VARIABLE url_false du .prop = ' + config.modules.standby.url_motion_false);
+  console.log('VARIABLE url_true du .prop = ' + config.modules.Motion_sensor.url_motion_true);
+  console.log('VARIABLE url_false du .prop = ' + config.modules.Motion_sensor.url_motion_false);
   console.log('VARIABLE data.motion transmise par l exports.stanBy = ' + data.motion);
    
   //On affecte les variables passée par les objets en paramétre : 
-  url_true = config.modules.standby.url_motion_true;
-  url_false = config.modules.standby.url_motion_false;
+  url_true = config.modules.Motion_sensor.url_motion_true;
+  url_false = config.modules.Motion_sensor.url_motion_false;
   motion = data.motion
   
   console.log('VARIABLE Affecter motion = ' + motion);
