@@ -40,7 +40,8 @@ exports.action = function(data, callback, config, SARAH){
 	callback({'tts': "Mouvement detecter"});
   }
   
-  if (motion == false) {
+  //if (motion == false) {
+  else {
 	var url = url_false;	
 	//Appelle la fonction pour executé la requette http
 	http(url);
