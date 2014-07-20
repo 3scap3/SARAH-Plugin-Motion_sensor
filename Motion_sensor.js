@@ -6,8 +6,12 @@ exports.standBy = function(motion, data, SARAH){
   console.log('SATUT de motion = ' + motion);
   
   //On envoi la requette url du coter "export action"  avec l'etat de "motion" , pour pouvoire le récuperé dans "data" en appellant une fonction http
-  var url = 'http://127.0.0.1:8080/sarah/Motion_sensor?motion=' + motion
-  http(url);
+  // var url = 'http://127.0.0.1:8383/sarah/Motion_sensor?motion=' + motion
+  // http(url);
+  
+  //Utilisation de SARAH.call plutot que la fonction http(url) pour transmettre motion au plugin 
+  SARAH.call('Motion_sensor', {'motion' : motion});
+ 
 }
 
 //La deuxiéme action est declenchée par la premiére en simulant l'appélle du plugin , avec transmition de la variable motion :
@@ -25,21 +29,22 @@ exports.action = function(data, callback, config, SARAH){
   url_false = config.modules.Motion_sensor.url_motion_false;
   motion = data.motion
   
+  //console.log('TYPE de la variable motion = ' + typeof motion);
   console.log('VARIABLE Affecter motion = ' + motion);
   
   //Les deux blocs conditionelles qui déclenche l'url déclarée dans le point prop en fonction de la captation de mouvements :
-  if (motion == 'true') {
+  if (motion == true) {
 	//Appelle la fonction pour executé la requette http
 	var url = url_true;
 	http(url);
-	callback({'tts' : 'Motion = ' + data.motion});
+	callback({'tts': "Mouvement detecter"});
   }
   
-  if (motion == 'false') {
+  if (motion == false) {
 	var url = url_false;	
 	//Appelle la fonction pour executé la requette http
 	http(url);
-	callback({'tts' : 'Motion = ' + data.motion});
+	callback({'tts': "Absence de mouvement detecter"});
   }
 }
 
@@ -58,6 +63,7 @@ request({ 'uri' : url }, function (err, response, body){
 	else {
 		console.log('INFOS : url poster dans la requette http : ' + url);
 		console.log('INFOS : Tout est ok , la requette est éxécuter');
+		console.log('INFOS : StatusCode de la requette http : ' + response.statusCode);
 		//callback({'tts': 'Tout est ok , la requette est éxécutée' });
 		//console.log('=========================================================================================================================================');
 	}
