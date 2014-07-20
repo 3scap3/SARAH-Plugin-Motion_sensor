@@ -20,12 +20,7 @@
 	  <p>L'orsque un mouvement est detecté une requette http est envoyée a l'url definite dans le champ <b>url_motion_true</b>.</p>
       <p>Aprés un certain laps de temp (definit en ms par le parametre "standby" du custom.ini) , sans detection de mouvement , l'url definite dans le champ <b>url_motion_false</b> est appeler a son tour.</p>
 	  <p>Pour integré le kinect dans votre installation domotique , pointer les url sur votre box en fonction de ses pre-requis.</p>
-	  <p></p>
-	  <p>NB :</p>
-	  <p>Si votre sarah ecoute sur un port differend ou que le nodes js se trouve sur un ip distante (non localhost) vous devrez editer la ligne 9 du fichier <b>Motion_sensor.js</b> :</p>
-	  <p>var url = 'http://127.0.0.1:8383/sarah/Motion_sensor?motion=' + motion<p>
-	  <p></p>
-	  
+	 
       <p>Pour afficher le status des variable dans la fenetre node js , voicis les phrases definit dans le fichier <i>Motion_sensor.xml :</i> :
         <ul>
           <li><i>statut</i></li>
