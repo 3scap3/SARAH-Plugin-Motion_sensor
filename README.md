@@ -28,12 +28,6 @@ Après un certain laps de temps (défini en ms par le paramètre "standby" du cu
 
 Pour integrer le kinect dans votre installation domotique, pointez les urls sur votre box en fonction de ces pré-requis.
 
-NB :
-Si votre Sarah écoute sur un port différent, ou que le NodeJS se trouve sur une IP distante (non localhost), vous devrez éditer la ligne 9 du fichier `Motion_sensor.js` :
-```javascript
-var url = 'http://127.0.0.1:8383/sarah/Motion_sensor?motion=' + motion
-```
-
 Pour afficher le statut des variables dans la fenêtre NodeJS, voici les phrases définies dans le fichier `Motion_sensor.xml` :
   - statut
   - quel est ton etat
