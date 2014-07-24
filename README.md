@@ -1,14 +1,15 @@
 SARAH-Plugin-standby
 ====================
 
-Plugin pour S.A.R.A.H permettant d'exploiter les fonctions de detection de mouvement du kinect
+Plugin pour S.A.R.A.H permettant d'exploiter les fonctions de détection de mouvement du kinect.
 
 
-Motion_sensor
+## Motion_sensor
+
 Le plugin Motion_sensor permet d'exploiter la fonction de captation de mouvement du kinect (standby) pour S.A.R.A.H.
 
-Parametrage du fichier de proprietée Motion_sensor.prop :
-
+Paramétrage du fichier de propriétés `Motion_sensor.prop` :
+```json
 			{
 			  "modules": { 
 				"standby": {
@@ -19,32 +20,29 @@ Parametrage du fichier de proprietée Motion_sensor.prop :
 				}
 			  }
 			} 
-      
-L'orsque un mouvement est detecté une requette http est envoyée a l'url definite dans le champ url_motion_true.
+```
 
-Aprés un certain laps de temp (definit en ms par le parametre "standby" du custom.ini) , sans detection de mouvement , l'url definite dans le champ url_motion_false est appeler a son tour.
+Lorsque un mouvement est detecté, une requête http est envoyée à l'url définie dans le champ `url_motion_true`.
 
-Pour integré le kinect dans votre installation domotique , pointer les url sur votre box en fonction de ses pre-requis.
+Après un certain laps de temps (défini en ms par le paramètre "standby" du custom.ini) sans détection de mouvement, l'url définie dans le champ `url_motion_false` est appelée à son tour.
+
+Pour integrer le kinect dans votre installation domotique, pointez les urls sur votre box en fonction de ces pré-requis.
 
 NB :
-
-Si votre sarah ecoute sur un port differend ou que le nodes js se trouve sur un ip distante (non localhost) vous devrez editer la ligne 9 du fichier Motion_sensor.js :
-
+Si votre Sarah écoute sur un port différent, ou que le NodeJS se trouve sur une IP distante (non localhost), vous devrez éditer la ligne 9 du fichier `Motion_sensor.js` :
+```javascript
 var url = 'http://127.0.0.1:8383/sarah/Motion_sensor?motion=' + motion
+```
 
-Pour afficher le status des variable dans la fenetre node js , voicis les phrases definit dans le fichier Motion_sensor.xml : :
+Pour afficher le statut des variables dans la fenêtre NodeJS, voici les phrases définies dans le fichier `Motion_sensor.xml` :
+  - statut
+  - quel est ton etat
+  - valeur standby
 
-statut
-quel est ton etat
-valeur standby
 Exemple d'utilisation :
+  - Vous pouvez par exemple chainer ce plugin avec le plugin kinect de Jean Philippe pour déclencher une prise de photo en cas de détection de mouvement.
+  - Appeler la page d'un serveur web en (php/js/vbs) pour convertir la requête en langage compréhensible par votre box (en fonction des api)
+  - Appeler directement une url de votre box domotique si celle-ci prend en charge les requêtes http
+  - N'hésitez pas à partager vos idées si vous en avez ^^
 
-- Vous pouvez par exemple chainer se plugin avec le plugin kinect de jean philippe pour declenché une prise de photos en cas de detection de mouvement.
-
-- Appeler la page d'un serveur web en (php js vbs) pour convertire la requette en language comprehensible par votre box (en fonction des api)
-
-- Appeler directement une url de votre box domotique si celle ci prend en charge les requettes http
-
-- n'hesiter a partager vos idées si vous en avez ^^
-
-Voila , si vous aviez un detecteur de mouvement dans la piece ou se trouve le kinect de S.A.R.A.H vous pouvez le recuperé et le mettre ailleur ^^
+Voilà, si vous aviez un détecteur de mouvement dans la piece où se trouve le kinect de S.A.R.A.H vous pouvez le récuperer et le mettre ailleur ^^
